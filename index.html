@@ -65,7 +65,7 @@
         constructor(orderNumber) {
             this.orderNumber = orderNumber;
             this.productsArr = [];
-            this.totalCost = 0;
+            this.sum = 0;
         }
 
         addProduct(product) {
@@ -73,12 +73,12 @@
         }
 
         getTotalPrice() {
-            this.totalCost = 0;
+            this.sum = 0;
             this.productsArr.forEach((el) => {
-                this.totalCost += el.price;
+                this.sum += el.price;
             });
 
-            return `Вывод: ${this.totalCost}`;
+            return `Вывод: ${this.sum}`;
         }
     }
 
