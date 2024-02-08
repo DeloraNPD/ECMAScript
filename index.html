@@ -6,91 +6,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<script type="module">
+    // const URL = "https://jsonplaceholder.typicode.com/users";
+
+    // const getData2 = async (URL) => {
+    //     const res = await fetch(URL);
+    //     const data = await res.json();
+    //     return data;
+    // }
+
+    // try {
+    //     const data = await getData2(URL);
+    //     console.log(data);
+    // } catch (error) {
+    //     console.log(error);
+    // }
+
+    const URL = 'https://jsonplaceholder.typicode.com/users';
+    const getData = async (URL) => {
+        const res = await fetch(URL);
+        const data = await res.json();
+        return data;
+    };
+
+    try {
+        const newData = await getData(URL);
+        console.log(newData);
+        const cardBoxEl = document.querySelector('body');
+        newData.forEach((element) => {
+            const user = `
+        <div class="card">
+            <h3>Пользователь ${element.id}</h3>
+            <p class="name">Имя: ${element.name}</p>
+            <p class="address">Город: ${element.address.city}</p>
+            <p class="username">Никнейм: ${element.username}</p>
+            <p class="email">Email: ${element.email}</p>
+            <p class="phone">Телефон: ${element.phone}</p>
+            <p class="website">Веб-сайт: ${element.website}</p>
+            <button class="btn_remove">Удалить пользователя</button>
+        </div>
+        `
+            cardBoxEl.insertAdjacentHTML("beforeend", user)
+        })
+        const deleteBtn = document.querySelectorAll('.btn_remove');
+        deleteBtn.forEach((button) => {
+            button.addEventListener('click', () => {
+                const userCard = button.closest('.card');
+                userCard.remove();
+            })
+        })
+    } catch (error) {
+        console.error('Произошла ошибка');
+    }
+</script>
 
 <body>
 </body>
-<script>
-    // Задание 1 - ""Управление персоналом компании""
-
-    // Реализуйте класс Employee(сотрудник), который имеет следующие свойства и методы:
-    // Свойство name(имя) - строка, имя сотрудника.
-    // Метод displayInfo() - выводит информацию о сотруднике(имя).
-
-    // Реализуйте класс Manager(менеджер), который наследует класс Employee и имеет дополнительное свойство и метод:
-    // Свойство department(отдел) - строка, отдел, в котором работает менеджер. 
-    // Метод displayInfo() - переопределяет метод displayInfo() родительского класса и выводит информацию о менеджере(имя и отдел).
-
-    class Employee {
-        constructor(name) {
-            this.name = name;
-        }
-
-        displayInfo() {
-            console.log(`Имя сотрудника: ${this.name}.`);
-        }
-    }
-
-    class Manager extends Employee {
-        constructor(name, department) {
-            super(name);
-            this.department = department;
-        }
-
-        displayInfo() {
-            console.log(`Имя сотрудника: ${this.name}; Отдел: ${this.department}.`);
-        }
-    }
-
-    const employee = new Employee("Алиса");
-    employee.displayInfo();
-    const manager = new Manager("Полина", "Frontend-разработка");
-    manager.displayInfo();
-
-    // Задание 2 - ""Управление списком заказов""
-
-    // Реализуйте класс Order(заказ), который имеет следующие свойства и методы:
-    // Свойство orderNumber(номер заказа) - число, уникальный номер заказа.
-    // Свойство products(продукты) - массив, содержащий список продуктов в заказе.
-    // Метод addProduct(product) - принимает объект product и добавляет его в список продуктов заказа.
-    // Метод getTotalPrice() - возвращает общую стоимость заказа, основанную на ценах продуктов.
-
-    class Product {
-        constructor(name, price) {
-            this.name = name;
-            this.price = price;
-        }
-    }
-
-    class Order {
-        constructor(orderNumber) {
-            this.orderNumber = orderNumber;
-            this.productsArr = [];
-            this.sum = 0;
-        }
-
-        addProduct(product) {
-            this.productsArr.push(product);
-        }
-
-        getTotalPrice() {
-            this.sum = 0;
-            this.productsArr.forEach((el) => {
-                this.sum += el.price;
-            });
-
-            return `Вывод: ${this.sum}`;
-        }
-    }
-
-    const order = new Order(1);
-
-    const product1 = new Product('Банан', 300);
-    order.addProduct(product1);
-
-    const product2 = new Product('Апельсин', 200);
-    order.addProduct(product2);
-
-    console.log(order.getTotalPrice());
-</script>
 
 </html>
